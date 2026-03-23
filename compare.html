@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compare Pickleball Paddles | Pickleball Paddle Database</title>
+  <meta name="description" content="Compare pickleball paddles side-by-side by weight, surface, core, skill level, and price.">
+  <meta property="og:title" content="Compare Pickleball Paddles">
+  <meta property="og:description" content="Pick two paddles and compare specifications side-by-side.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-username.github.io/your-repo-name/compare.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="compare">
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">Pickleball Paddle Database</a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html">Home</a>
+        <a href="paddles.html">All Paddles</a>
+        <a href="compare.html">Compare</a>
+        <a href="finder.html">Finder Quiz</a>
+        <a href="pro-players.html">Pro Players</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <section class="hero compact">
+      <h1>Compare Two Paddles</h1>
+      <p>Select two paddles to compare their specs side-by-side.</p>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <select id="compare-a"><option value="">Select first paddle</option></select>
+        <select id="compare-b"><option value="">Select second paddle</option></select>
+        <button id="compare-btn" class="btn">Compare</button>
+      </div>
+      <p class="muted">SEO-style URL preview: <span id="compare-url-preview">/compare/paddle-a-vs-paddle-b</span></p>
+    </section>
+
+    <section id="compare-result" class="compare-grid"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Use this tool to quickly compare specs before you buy.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

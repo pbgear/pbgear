@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pickleball Paddle Database | Search, Compare, and Find Your Perfect Paddle</title>
+  <meta name="description" content="Browse, search, filter, compare, and discover the best pickleball paddles with specs and affiliate links.">
+  <meta property="og:title" content="Pickleball Paddle Database">
+  <meta property="og:description" content="Search and compare pickleball paddles by brand, skill level, type, and price.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-username.github.io/your-repo-name/">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1631053566778-6f95f22f2eb3?auto=format&fit=crop&w=1200&q=80">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">Pickleball Paddle Database</a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html">Home</a>
+        <a href="paddles.html">All Paddles</a>
+        <a href="compare.html">Compare</a>
+        <a href="finder.html">Finder Quiz</a>
+        <a href="pro-players.html">Pro Players</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <section class="hero">
+      <h1>Find the Right Pickleball Paddle</h1>
+      <p>Search, filter, compare, and shop paddles using live data from your Google Sheet.</p>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Search and Filter</h2>
+      <div class="toolbar">
+        <input id="search-input" type="search" placeholder="Search by name, brand, material..." aria-label="Search paddles">
+        <select id="filter-brand"><option value="">All Brands</option></select>
+        <select id="filter-skill"><option value="">All Skill Levels</option></select>
+        <select id="filter-type"><option value="">All Paddle Types</option></select>
+        <select id="filter-weight">
+          <option value="">All Weights</option>
+          <option value="light">Light (&lt; 7.7 oz)</option>
+          <option value="medium">Medium (7.7 - 8.3 oz)</option>
+          <option value="heavy">Heavy (&gt; 8.3 oz)</option>
+        </select>
+        <select id="filter-price">
+          <option value="">All Prices</option>
+          <option value="0-50">Under $50</option>
+          <option value="0-100">Under $100</option>
+          <option value="0-150">Under $150</option>
+          <option value="150-9999">$150+</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading-row">
+        <h2 class="section-heading">Featured Paddles</h2>
+        <a class="link-btn" href="paddles.html">View all paddles</a>
+      </div>
+      <div id="paddle-grid" class="paddle-grid"></div>
+      <p id="empty-state" class="empty-state hidden">No paddles matched your filters.</p>
+    </section>
+
+    <section class="quick-links panel">
+      <h2 class="panel-title">Browse Popular Pages</h2>
+      <div class="quick-link-grid">
+        <a href="paddles.html?view=best-beginners">Best Paddles for Beginners</a>
+        <a href="paddles.html?view=best-control">Best Control Paddles</a>
+        <a href="paddles.html?view=best-power">Best Power Paddles</a>
+        <a href="paddles.html?view=best-lightweight">Best Lightweight Paddles</a>
+        <a href="paddles.html?view=under-50">Best Paddles Under $50</a>
+        <a href="paddles.html?view=under-100">Best Paddles Under $100</a>
+        <a href="paddles.html?view=under-150">Best Paddles Under $150</a>
+        <a href="paddles.html?view=new-pickleball-paddles">New Pickleball Paddles</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Affiliate disclosure: This site may earn a commission if you buy through links.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Pickleball Paddles | Pickleball Paddle Database</title>
+  <meta name="description" content="Browse all pickleball paddles, brands, categories, and best lists.">
+  <meta property="og:title" content="All Pickleball Paddles">
+  <meta property="og:description" content="Browse paddles by brand, type, skill level, and price.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-username.github.io/your-repo-name/paddles.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="paddles">
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">Pickleball Paddle Database</a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html">Home</a>
+        <a href="paddles.html">All Paddles</a>
+        <a href="compare.html">Compare</a>
+        <a href="finder.html">Finder Quiz</a>
+        <a href="pro-players.html">Pro Players</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <section class="hero compact">
+      <h1 id="dynamic-page-title">All Paddles</h1>
+      <p id="dynamic-page-intro">Browse every paddle in the database.</p>
+    </section>
+
+    <section class="panel admin-panel">
+      <h2 class="panel-title">Owner Admin (No Code Needed)</h2>
+      <p class="muted">Main editing should be done in Google Sheets. This optional section lets you quickly add/edit/delete local preview rows in your browser for testing.</p>
+      <details>
+        <summary>Open local browser editor</summary>
+        <form id="admin-form" class="admin-form">
+          <input type="hidden" id="admin-id">
+          <input id="admin-name" placeholder="Name" required>
+          <input id="admin-brand" placeholder="Brand" required>
+          <input id="admin-weight" placeholder="Weight (oz)" required>
+          <input id="admin-surface" placeholder="Surface material" required>
+          <input id="admin-core" placeholder="Core material" required>
+          <input id="admin-skill" placeholder="Skill level" required>
+          <input id="admin-type" placeholder="Paddle type" required>
+          <input id="admin-price" placeholder="Price" required>
+          <input id="admin-image" placeholder="Image URL" required>
+          <input id="admin-description" placeholder="Description" required>
+          <input id="admin-pros" placeholder="Pros (use | separator)" required>
+          <input id="admin-cons" placeholder="Cons (use | separator)" required>
+          <input id="admin-affiliate" placeholder="Affiliate link" required>
+          <input id="admin-year" placeholder="Release year" required>
+          <div class="admin-actions">
+            <button type="submit" class="btn">Save Local Paddle</button>
+            <button type="button" id="admin-reset" class="btn btn-secondary">Reset Form</button>
+          </div>
+        </form>
+      </details>
+    </section>
+
+    <section class="panel">
+      <h2 class="panel-title">Refine Results</h2>
+      <div class="toolbar">
+        <input id="search-input" type="search" placeholder="Search paddles..." aria-label="Search paddles">
+        <select id="filter-brand"><option value="">All Brands</option></select>
+        <select id="filter-skill"><option value="">All Skill Levels</option></select>
+        <select id="filter-type"><option value="">All Paddle Types</option></select>
+        <select id="filter-weight">
+          <option value="">All Weights</option>
+          <option value="light">Light (&lt; 7.7 oz)</option>
+          <option value="medium">Medium (7.7 - 8.3 oz)</option>
+          <option value="heavy">Heavy (&gt; 8.3 oz)</option>
+        </select>
+        <select id="filter-price">
+          <option value="">All Prices</option>
+          <option value="0-50">Under $50</option>
+          <option value="0-100">Under $100</option>
+          <option value="0-150">Under $150</option>
+          <option value="150-9999">$150+</option>
+        </select>
+      </div>
+    </section>
+
+    <section>
+      <div id="paddle-grid" class="paddle-grid"></div>
+      <p id="empty-state" class="empty-state hidden">No paddles found for this page/filter.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Tip: For permanent edits, update your Google Sheet rows and refresh this page.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

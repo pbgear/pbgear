@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paddle Finder Quiz | Pickleball Paddle Database</title>
+  <meta name="description" content="Take a quick quiz to get pickleball paddle recommendations by skill, style, and preferred weight.">
+  <meta property="og:title" content="Pickleball Paddle Finder Quiz">
+  <meta property="og:description" content="Answer 3 questions and get paddle recommendations.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://your-username.github.io/your-repo-name/finder.html">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="finder">
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="index.html">Pickleball Paddle Database</a>
+      <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+      <nav class="site-nav" id="site-nav">
+        <a href="index.html">Home</a>
+        <a href="paddles.html">All Paddles</a>
+        <a href="compare.html">Compare</a>
+        <a href="finder.html">Finder Quiz</a>
+        <a href="pro-players.html">Pro Players</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <section class="hero compact">
+      <h1>Paddle Finder Quiz</h1>
+      <p>Answer a few quick questions to get recommendations.</p>
+    </section>
+
+    <section class="panel">
+      <form id="finder-form" class="quiz-form">
+        <label>Skill level
+          <select id="quiz-skill" required>
+            <option value="">Choose one</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </label>
+
+        <label>Play style
+          <select id="quiz-style" required>
+            <option value="">Choose one</option>
+            <option value="Power">Power</option>
+            <option value="Control">Control</option>
+            <option value="Balanced">Balanced</option>
+          </select>
+        </label>
+
+        <label>Weight preference
+          <select id="quiz-weight" required>
+            <option value="">Choose one</option>
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="heavy">Heavy</option>
+          </select>
+        </label>
+
+        <button class="btn" type="submit">Show Recommendations</button>
+      </form>
+    </section>
+
+    <section>
+      <h2 class="section-heading">Recommended Paddles</h2>
+      <div id="finder-results" class="paddle-grid"></div>
+      <p id="finder-empty" class="empty-state hidden">No exact matches found. Try a different quiz combination.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>The quiz is a quick guide. Use compare for a deeper side-by-side check.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
