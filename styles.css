@@ -179,7 +179,7 @@ select {
 
 .card img {
   width: 100%;
-  height: 180px;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   background: #eef4f3;
 }
@@ -234,7 +234,7 @@ select {
   border-radius: 12px;
   border: 1px solid var(--border);
   object-fit: cover;
-  height: 300px;
+  aspect-ratio: 3 / 4;
 }
 
 .spec-grid {
@@ -273,7 +273,7 @@ select {
 
 .compare-col img {
   width: 100%;
-  height: 180px;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
   border-radius: 10px;
   border: 1px solid var(--border);
