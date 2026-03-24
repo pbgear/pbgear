@@ -28,10 +28,8 @@
   }
 
   function deriveImageUrl(name, brand, id) {
-    const query = encodeURIComponent(`pickleball paddle ${brand} ${name}`);
-    const sig = encodeURIComponent(String(id || Math.random()).replace(/[^a-z0-9]/gi, ""));
-    // Unsplash Source provides a high-quality photo for a given query without API keys.
-    return `https://source.unsplash.com/800x600/?${query}&sig=${sig}`;
+    const seedBase = slugify(`pb ${id || "0"} ${brand} ${name}`) || "pbdb-default";
+    return `https://picsum.photos/seed/${seedBase}/800/600`;
   }
 
   function cleanRow(row, idx) {
@@ -40,7 +38,6 @@
     const brand = row.brand || "Unknown";
     const slug = slugify(name);
     const weight = parseNum(row.weight_oz, 8.0);
-    const price = parseNum(row.price, 0);
     const releaseYear = parseNum(row.release_year, 2024);
     const pros = String(row.pros || "").split("|").map((v) => v.trim()).filter(Boolean);
     const cons = String(row.cons || "").split("|").map((v) => v.trim()).filter(Boolean);
@@ -55,7 +52,6 @@
       core_material: row.core_material || "Unknown",
       skill_level: row.skill_level || "Beginner",
       paddle_type: row.paddle_type || "Balanced",
-      price,
       image_url: (row.image_url && String(row.image_url).trim())
         ? row.image_url
         : (fallbackImage || deriveImageUrl(name, brand, id)),
@@ -128,14 +124,7 @@
       const matchesSkill = !filters.skill || p.skill_level === filters.skill;
       const matchesType = !filters.type || p.paddle_type === filters.type;
       const matchesWeight = !filters.weight || getWeightBucket(p.weight_oz) === filters.weight;
-
-      let matchesPrice = true;
-      if (filters.price) {
-        const [min, max] = filters.price.split("-").map((n) => parseNum(n, 0));
-        matchesPrice = p.price >= min && p.price <= max;
-      }
-
-      return matchesSearch && matchesBrand && matchesSkill && matchesType && matchesWeight && matchesPrice;
+      return matchesSearch && matchesBrand && matchesSkill && matchesType && matchesWeight;
     });
   }
 
@@ -150,7 +139,6 @@
             <span class="tag">${p.skill_level}</span>
             <span class="tag">${p.paddle_type}</span>
           </div>
-          <p class="price">$${p.price}</p>
           <a class="btn" href="paddle.html?slug=${encodeURIComponent(p.slug)}">View Details</a>
         </div>
       </article>
@@ -180,7 +168,6 @@
     const skillSelect = document.getElementById("filter-skill");
     const typeSelect = document.getElementById("filter-type");
     const weightSelect = document.getElementById("filter-weight");
-    const priceSelect = document.getElementById("filter-price");
     const grid = document.getElementById("paddle-grid");
     const empty = document.getElementById("empty-state");
 
@@ -194,8 +181,7 @@
         brand: brandSelect ? brandSelect.value : "",
         skill: skillSelect ? skillSelect.value : "",
         type: typeSelect ? typeSelect.value : "",
-        weight: weightSelect ? weightSelect.value : "",
-        price: priceSelect ? priceSelect.value : ""
+        weight: weightSelect ? weightSelect.value : ""
       };
 
       let rows = byFilters(db, filters);
@@ -209,7 +195,7 @@
       renderGrid(grid, rows, empty);
     };
 
-    [searchInput, brandSelect, skillSelect, typeSelect, weightSelect, priceSelect].forEach((el) => {
+    [searchInput, brandSelect, skillSelect, typeSelect, weightSelect].forEach((el) => {
       if (el) el.addEventListener("input", run);
       if (el) el.addEventListener("change", run);
     });
@@ -260,21 +246,6 @@
         intro: "Faster hands and maneuverability with lighter builds.",
         filter: (r) => r.weight_oz < 7.7
       },
-      "under-50": {
-        title: "Best Paddles Under $50",
-        intro: "Budget-friendly options for casual and beginner play.",
-        filter: (r) => r.price <= 50
-      },
-      "under-100": {
-        title: "Best Paddles Under $100",
-        intro: "Solid performance and value under $100.",
-        filter: (r) => r.price <= 100
-      },
-      "under-150": {
-        title: "Best Paddles Under $150",
-        intro: "High-quality paddles without top-tier pricing.",
-        filter: (r) => r.price <= 150
-      },
       "new-pickleball-paddles": {
         title: "New Pickleball Paddles",
         intro: "Newest paddle releases sorted by release year.",
@@ -296,7 +267,7 @@
     setHeader(toTitleCase(decoded), `Automatically filtered page for: ${decoded}.`);
 
     return rows.filter((p) => {
-      const slugName = slugify(`${p.brand} ${p.paddle_type} ${p.skill_level} ${p.surface_material} ${getWeightBucket(p.weight_oz)} under ${p.price}`);
+      const slugName = slugify(`${p.brand} ${p.paddle_type} ${p.skill_level} ${p.surface_material} ${getWeightBucket(p.weight_oz)}`);
       return slugName.includes(view) || matchesKeyword(p, decoded);
     });
   }
@@ -321,8 +292,6 @@
       description: paddle.description,
       offers: {
         "@type": "Offer",
-        priceCurrency: "USD",
-        price: String(paddle.price),
         availability: "https://schema.org/InStock",
         url: paddle.affiliate_link
       }
@@ -363,14 +332,13 @@
           <div class="spec"><strong>Core</strong>${paddle.core_material}</div>
           <div class="spec"><strong>Skill Level</strong>${paddle.skill_level}</div>
           <div class="spec"><strong>Paddle Type</strong>${paddle.paddle_type}</div>
-          <div class="spec"><strong>Price</strong>$${paddle.price}</div>
           <div class="spec"><strong>Release Year</strong>${paddle.release_year}</div>
         </div>
         <p>${paddle.description}</p>
         <p><strong>Pros:</strong> ${paddle.pros.join(", ") || "N/A"}</p>
         <p><strong>Cons:</strong> ${paddle.cons.join(", ") || "N/A"}</p>
         <p>
-          <a class="btn" href="${paddle.affiliate_link}" target="_blank" rel="noopener noreferrer sponsored">View Price on Amazon</a>
+          <a class="btn" href="${paddle.affiliate_link}" target="_blank" rel="noopener noreferrer sponsored">View on Amazon</a>
         </p>
       </div>
     `;
@@ -407,7 +375,6 @@
           <p><strong>Surface:</strong> ${p.surface_material}</p>
           <p><strong>Core:</strong> ${p.core_material}</p>
           <p><strong>Skill Level:</strong> ${p.skill_level}</p>
-          <p><strong>Price:</strong> $${p.price}</p>
           <p><a class="btn" href="paddle.html?slug=${encodeURIComponent(p.slug)}">View Details</a></p>
         </article>
       `;
@@ -476,7 +443,7 @@
           <p><strong>Surface:</strong> ${paddle.surface_material}</p>
           <p><strong>Core:</strong> ${paddle.core_material}</p>
           <p><strong>Skill Focus:</strong> ${pro.style}</p>
-          <p><a class="btn" href="${paddle.affiliate_link}" target="_blank" rel="noopener noreferrer sponsored">View Price on Amazon</a></p>
+          <p><a class="btn" href="${paddle.affiliate_link}" target="_blank" rel="noopener noreferrer sponsored">View on Amazon</a></p>
         </article>
       `;
     }).join("");
@@ -499,7 +466,6 @@
       core_material: document.getElementById("admin-core"),
       skill_level: document.getElementById("admin-skill"),
       paddle_type: document.getElementById("admin-type"),
-      price: document.getElementById("admin-price"),
       image_url: document.getElementById("admin-image"),
       description: document.getElementById("admin-description"),
       pros: document.getElementById("admin-pros"),
@@ -558,7 +524,6 @@
       fields.core_material.value = match.core_material;
       fields.skill_level.value = match.skill_level;
       fields.paddle_type.value = match.paddle_type;
-      fields.price.value = match.price;
       fields.image_url.value = match.image_url;
       fields.description.value = match.description;
       fields.pros.value = match.pros.join(" | ");

@@ -126,7 +126,7 @@ Important: Keep the same column headers exactly as they are in `starter-paddles.
 
 Your sheet must include these columns in row 1:
 
-`id, name, brand, weight_oz, surface_material, core_material, skill_level, paddle_type, price, image_url, description, pros, cons, affiliate_link, release_year`
+`id, name, brand, weight_oz, surface_material, core_material, skill_level, paddle_type, image_url, description, pros, cons, affiliate_link, release_year`
 
 ---
 
