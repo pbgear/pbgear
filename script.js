@@ -131,7 +131,9 @@
   function cardHTML(p) {
     return `
       <article class="card">
-        <img src="${p.image_url}" alt="${p.name}" loading="lazy" onerror="this.src='${fallbackImage}'">
+        <a href="paddle.html?slug=${encodeURIComponent(p.slug)}" aria-label="View details for ${p.name}">
+          <img src="${p.image_url}" alt="${p.name}" loading="lazy" onerror="this.src='${fallbackImage}'">
+        </a>
         <div class="card-body">
           <h3>${p.name}</h3>
           <p class="meta">${p.brand} · ${p.weight_oz.toFixed(1)} oz</p>
