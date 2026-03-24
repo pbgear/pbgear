@@ -27,6 +27,13 @@
     return Number.isFinite(n) ? n : fallback;
   }
 
+  function deriveImageUrl(name, brand, id) {
+    const query = encodeURIComponent(`pickleball paddle ${brand} ${name}`);
+    const sig = encodeURIComponent(String(id || Math.random()).replace(/[^a-z0-9]/gi, ""));
+    // Unsplash Source provides a high-quality photo for a given query without API keys.
+    return `https://source.unsplash.com/800x600/?${query}&sig=${sig}`;
+  }
+
   function cleanRow(row, idx) {
     const id = String(row.id || idx + 1);
     const name = row.name || "Unknown Paddle";
@@ -49,7 +56,9 @@
       skill_level: row.skill_level || "Beginner",
       paddle_type: row.paddle_type || "Balanced",
       price,
-      image_url: row.image_url || fallbackImage,
+      image_url: (row.image_url && String(row.image_url).trim())
+        ? row.image_url
+        : (fallbackImage || deriveImageUrl(name, brand, id)),
       description: row.description || "No description yet.",
       pros,
       cons,
