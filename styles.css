@@ -385,6 +385,12 @@ select {
     display: block;
   }
 
+  /* Home (featured paddles) - force 2 columns on small screens for better density */
+  body[data-page="home"] .paddle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
   .site-nav {
     display: none;
     position: absolute;
@@ -404,5 +410,12 @@ select {
 
   .compare-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Paddle detail image: reduce dominance on mobile so content appears sooner */
+  .detail-layout img {
+    max-width: 240px;
+    margin: 0 auto;
+    display: block;
   }
 }
