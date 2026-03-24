@@ -184,20 +184,29 @@ select {
   background: #eef4f3;
 }
 
+.adaptive-image.too-vertical {
+  object-fit: contain;
+  object-position: center;
+  background: #fff;
+  padding: 0.35rem;
+}
+
 .card-body {
   padding: 0.8rem;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.3rem;
 }
 
 .card h3 {
-  margin: 0;
+  margin: 0 0 0.1rem;
   font-size: 1rem;
+  line-height: 1.25;
 }
 
 .meta {
   color: var(--muted);
   font-size: 0.92rem;
+  margin: 0;
 }
 
 .price {
@@ -269,6 +278,16 @@ select {
   border-radius: 14px;
   padding: 1rem;
   box-shadow: var(--shadow);
+}
+
+.compare-col h2 {
+  margin: 0.5rem 0 0.25rem;
+  line-height: 1.25;
+}
+
+.compare-col p {
+  margin: 0.2rem 0;
+  line-height: 1.35;
 }
 
 .compare-col img {

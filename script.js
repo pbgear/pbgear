@@ -132,7 +132,7 @@
     return `
       <article class="card">
         <a href="paddle.html?slug=${encodeURIComponent(p.slug)}" aria-label="View details for ${p.name}">
-          <img src="${p.image_url}" alt="${p.name}" loading="lazy" onerror="this.src='${fallbackImage}'">
+          <img class="adaptive-image" src="${p.image_url}" alt="${p.name}" loading="lazy" onerror="this.src='${fallbackImage}'">
         </a>
         <div class="card-body">
           <h3>${p.name}</h3>
@@ -151,6 +151,23 @@
     if (!container) return;
     container.innerHTML = rows.map(cardHTML).join("");
     if (emptyEl) emptyEl.classList.toggle("hidden", rows.length > 0);
+    markVerticalImages(container);
+  }
+
+  function markVerticalImages(rootEl) {
+    const root = rootEl || document;
+    root.querySelectorAll("img.adaptive-image").forEach((img) => {
+      const applyClass = () => {
+        const w = img.naturalWidth || 0;
+        const h = img.naturalHeight || 0;
+        if (!w || !h) return;
+        const ratio = h / w;
+        img.classList.toggle("too-vertical", ratio > 1.45);
+      };
+
+      if (img.complete) applyClass();
+      img.addEventListener("load", applyClass, { once: true });
+    });
   }
 
   function setupNavMenu() {
@@ -323,7 +340,7 @@
 
     target.innerHTML = `
       <div>
-        <img src="${paddle.image_url}" alt="${paddle.name}" onerror="this.src='${fallbackImage}'">
+        <img class="adaptive-image" src="${paddle.image_url}" alt="${paddle.name}" onerror="this.src='${fallbackImage}'">
       </div>
       <div>
         <h1>${paddle.name}</h1>
@@ -345,6 +362,7 @@
       </div>
     `;
 
+    markVerticalImages(target);
     addProductSchema(paddle);
   }
 
@@ -370,7 +388,7 @@
     function oneCol(p) {
       return `
         <article class="compare-col">
-          <img src="${p.image_url}" alt="${p.name}" onerror="this.src='${fallbackImage}'">
+          <img class="adaptive-image" src="${p.image_url}" alt="${p.name}" onerror="this.src='${fallbackImage}'">
           <h2>${p.name}</h2>
           <p class="meta">${p.brand}</p>
           <p><strong>Weight:</strong> ${p.weight_oz.toFixed(1)} oz</p>
@@ -400,6 +418,7 @@
 
       document.title = `${pa.name} vs ${pb.name} | Paddle Compare`;
       result.innerHTML = oneCol(pa) + oneCol(pb);
+      markVerticalImages(result);
     }
 
     btn.addEventListener("click", run);
